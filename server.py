@@ -51,26 +51,26 @@ def on_line(line):
             event_data = getattr(payload, "data", None)
 
         if event_type == "Subscription":
-            
+
             if _ws_client is not None:
-                
-                if eventType == "PlayerJoined": # ignore 
-                
+
+                if eventType == "PlayerJoined": # ignore
+
                     if event_data is not None:
-                        
+
                         Username = event_data.get("user").get("username")
                         logger._log(f"[join/leave Alert] Player joined: {Username}")
                         _ws_client.send(f'player message * "{Username} has joined the game!"')
 
                 elif eventType == "PlayerLeft": # ignore
                     if event_data is not None:
-                        
+
                         Username = event_data.get("user").get("username")
                         logger._log(f"[join/leave Alert] Player left: {Username}")
                         _ws_client.send(f'player message * "{Username} has left the game!" 2.5')
     except Exception as e:
         logger._log(f"[join/leave Alert] on_line handler error: {e}")
-        
+
 
 def on_disc(reason=""):
     if reason:
@@ -105,7 +105,7 @@ def startup():
 
     if _ws_client is None:
         _ws_client = WsConsoleClient()
-    
+
     while not _stop_event.is_set():
         client = _ws_client
         if client is None:
@@ -120,12 +120,12 @@ def startup():
             continue
         if success:
             logger._log(f"[join/leave Alert] connected to console: {msg}")
-            
+
             client.send("websocket subscribe PlayerJoined")
             client.send("websocket subscribe PlayerLeft")
 
-            
-                
+
+
 
             logger._log("[join/leave Alert] sent subscription request.")
             return

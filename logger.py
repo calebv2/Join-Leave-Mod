@@ -8,17 +8,17 @@ import threading
 
 
 class CaveLevelAlertLogger:
-    
+
     def __init__(self):
         self.init()
 
     def init(self):
         self._log_file = "join_leave_alert.log"
         self._log_lock = threading.Lock()
-        self._log("Cave Level Alert Logger initialized.") 
-       
+        self._log("Cave Level Alert Logger initialized.")
+
         self.path = self.set_path()
-        
+
 
     def _log(self,message):
         with self._log_lock:
@@ -38,5 +38,3 @@ class CaveLevelAlertLogger:
         except Exception:
             pass
         return os.path.join(path,self._log_file)
-
-    
