@@ -32,6 +32,7 @@ namespace JoinLeaveAlerts
         private MelonPreferences_Entry<string> statusEmbedMessageId;
         private MelonPreferences_Entry<string> statusEmbedOnlinePlayers;
         private MelonPreferences_Entry<string> statusEmbedOfflinePlayers;
+        private MelonPreferences_Entry<int> statusEmbedOfflinePlayersLimit;
         private MelonPreferences_Entry<string> modPackRejectedMessage;
         private MelonPreferences_Entry<float> displayDuration;
         private readonly object preferenceSync = new object();
@@ -67,6 +68,7 @@ namespace JoinLeaveAlerts
             statusEmbedMessageId = category.CreateEntry("StatusEmbedMessageId", String.Empty, "Managed automatically; do not edit unless resetting the StatusEmbed");
             statusEmbedOnlinePlayers = category.CreateEntry("StatusEmbedOnlinePlayers", String.Empty, "Managed automatically; persisted online names for StatusEmbed");
             statusEmbedOfflinePlayers = category.CreateEntry("StatusEmbedOfflinePlayers", String.Empty, "Managed automatically; persisted offline names for StatusEmbed");
+            statusEmbedOfflinePlayersLimit = category.CreateEntry("StatusEmbedOfflinePlayersLimit", 5, "Maximum recently offline names to show; 0 hides names but keeps the total and overflow count");
             modPackRejectedMessage = category.CreateEntry("ModPackRejectedMessage", "{player} could not join: missing or incompatible mod pack ({mods}).", "Discord-only message when optional RequiredModsGate rejects a client");
             displayDuration = category.CreateEntry("DisplayDuration", 2.5f, "Seconds each announcement remains visible");
             statusRoster = PlayerStatusRoster.FromPersisted(statusEmbedOnlinePlayers.Value, statusEmbedOfflinePlayers.Value);
@@ -232,8 +234,10 @@ namespace JoinLeaveAlerts
             foreach (PropertyInfo property in typeof(StatusEmbedOptions).GetProperties())
             {
                 if (property.PropertyType == typeof(bool)) property.SetValue(options, embedFlags[property.Name].Value, null);
+                else if (property.PropertyType == typeof(int)) property.SetValue(options, statusEmbedOfflinePlayersLimit.Value, null);
                 else property.SetValue(options, embedText[property.Name].Value, null);
             }
+            options.OfflinePlayersLimit = Math.Max(0, Math.Min(100, options.OfflinePlayersLimit));
             return options;
         }
 

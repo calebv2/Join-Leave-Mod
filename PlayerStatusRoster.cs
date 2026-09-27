@@ -14,6 +14,16 @@ namespace JoinLeaveAlerts
         public string OnlineNames { get { return Display(online); } }
         public string OfflineNames { get { return Display(offline); } }
 
+        public string GetOfflineNames(int displayLimit)
+        {
+            int count = Math.Min(offline.Count, Math.Max(0, displayLimit));
+            var recent = new List<string>(count + 1);
+            for (int index = 0; index < count; index++) recent.Add(offline[offline.Count - 1 - index]);
+            int hidden = offline.Count - count;
+            if (hidden > 0) recent.Add("…and " + hidden.ToString(System.Globalization.CultureInfo.InvariantCulture) + " more");
+            return Display(recent);
+        }
+
         public void MarkOnline(string playerName)
         {
             Move(playerName, online, offline);

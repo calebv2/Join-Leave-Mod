@@ -10,6 +10,7 @@ namespace JoinLeaveAlerts
         public bool ShowActivity { get; set; } = true;
         public bool ShowOnlinePlayers { get; set; } = true;
         public bool ShowOfflinePlayers { get; set; } = true;
+        public int OfflinePlayersLimit { get; set; } = 5;
         public bool ShowUptime { get; set; } = true;
         public bool ShowTimestamp { get; set; } = true;
         public bool ShowFooter { get; set; } = true;

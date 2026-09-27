@@ -37,6 +37,8 @@ Every section can be enabled or disabled independently. All `StatusEmbedShow...`
 | `StatusEmbedShowActivityAge` | Relative time beside the latest activity, for example `VMan has left • 2 hours ago` |
 | `StatusEmbedShowOnlinePlayers` | Online player names and count |
 | `StatusEmbedShowOfflinePlayers` | Known offline player names and count |
+
+`StatusEmbedOfflinePlayersLimit` defaults to `5`; it shows the most recently offline players first, followed by `…and N more`. The offline count still includes the entire remembered roster. Set the limit to `0` to show the count and overflow line with no names (range: 0–100).
 | `StatusEmbedShowUptime` | Time since the server became ready; freezes when stopped |
 | `StatusEmbedShowTimestamp` | Discord timestamp for the last refresh |
 | `StatusEmbedShowFooter` | Custom footer text |

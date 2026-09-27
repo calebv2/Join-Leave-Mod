@@ -38,7 +38,7 @@ namespace JoinLeaveAlerts
             }
             if (options.ShowServerStatus) fields.Add(Field("Server status", online ? "🟢 Server Online" : "🔴 Server Offline", false));
             if (options.ShowOnlinePlayers) fields.Add(Field("👥 Online — " + roster.OnlineCount, roster.OnlineCount == 0 ? "Nobody online" : roster.OnlineNames, true));
-            if (options.ShowOfflinePlayers) fields.Add(Field("💤 Offline — " + roster.OfflineCount, roster.OfflineCount == 0 ? "No known offline players" : roster.OfflineNames, true));
+            if (options.ShowOfflinePlayers) fields.Add(Field("💤 Offline — " + roster.OfflineCount, roster.OfflineCount == 0 ? "No known offline players" : roster.GetOfflineNames(options.OfflinePlayersLimit), true));
             if (options.ShowUptime)
             {
                 long minutes = Math.Max(0, (long)uptime.TotalMinutes);
