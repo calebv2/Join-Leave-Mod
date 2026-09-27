@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+obj/
+bin/backups/
+tests/*.exe
+*.mdb
+*.pdb
