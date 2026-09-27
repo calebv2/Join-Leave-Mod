@@ -27,6 +27,8 @@ internal static class Program
         Assert(ModPackRejectionFormatter.Format("", "Ava", new[] { "Pet missing" }) == null, "Blank rejection messages must be disabled.");
         Assert(DiscordDeliveryModeParser.Parse("StatusEmbed") == DiscordDeliveryMode.StatusEmbed, "StatusEmbed must be selected.");
         Assert(DiscordDeliveryModeParser.Parse("other") == DiscordDeliveryMode.Messages, "Unknown modes must safely fall back.");
+        Assert(StatusEmbedOptions.IsTextSetting(typeof(StatusEmbedOptions).GetProperty("Title")), "String options must register as text preferences.");
+        Assert(!StatusEmbedOptions.IsTextSetting(typeof(StatusEmbedOptions).GetProperty("OfflinePlayersLimit")), "Integer options must not be cast to text preferences.");
         Assert(DiscordWebhookResponse.TryGetMessageId("{\"id\":\"123\"}") == "123", "Message IDs must be persisted.");
         Assert(DiscordWebhookResponse.TryGetMessageId("{}") == null, "Missing message IDs must be ignored.");
         TestEmbeds();

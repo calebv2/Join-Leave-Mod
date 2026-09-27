@@ -60,7 +60,7 @@ namespace JoinLeaveAlerts
                 string key = "StatusEmbed" + property.Name;
                 if (property.PropertyType == typeof(bool))
                     embedFlags[property.Name] = category.CreateEntry(key, (bool)property.GetValue(defaults, null), "Enable " + property.Name.Substring(4) + " in the status embed");
-                else
+                else if (StatusEmbedOptions.IsTextSetting(property))
                     embedText[property.Name] = category.CreateEntry(key, (string)property.GetValue(defaults, null), "Optional status embed " + property.Name + "; blank omits text/URLs; colors accept #RRGGBB");
             }
             statusEmbedRefreshSeconds = category.CreateEntry("StatusEmbedRefreshSeconds", 60f, "Refresh interval in seconds (15-3600), including uptime and last updated");

@@ -1,9 +1,15 @@
 using System;
+using System.Reflection;
 
 namespace JoinLeaveAlerts
 {
     public sealed class StatusEmbedOptions
     {
+        internal static bool IsTextSetting(PropertyInfo property)
+        {
+            return property != null && property.PropertyType == typeof(string);
+        }
+
         public bool ShowTitle { get; set; } = true;
         public bool ShowServerStatus { get; set; } = true;
         public bool ShowActivityAge { get; set; } = true;
